@@ -8,4 +8,5 @@ dependencies = [
     "httpx>=0.28.1",
     "markdownify>=1.2.2",
     "pymupdf>=1.27.2.2",
+    "pymupdf4llm>=1.27.2.2",
 ]

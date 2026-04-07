@@ -80,7 +80,9 @@ def fetch_one(client: httpx.Client, letter: Letter) -> FetchedLetter:
     resp = client.get(letter.url)
     resp.raise_for_status()
     if letter.format == "html":
-        return FetchedLetter(year=letter.year, text=resp.text, raw=b"", format="html")
+        # 伯克希尔官网 HTML 实际是 Windows-1252 编码（含弯引号、撇号等）
+        text = resp.content.decode("cp1252", errors="replace")
+        return FetchedLetter(year=letter.year, text=text, raw=b"", format="html")
     return FetchedLetter(year=letter.year, text="", raw=resp.content, format="pdf")
 
 
